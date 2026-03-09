@@ -2,65 +2,454 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>DevHire | Developer Job Aggregator</title>
+    <title>TalentFlow | Developer Job Aggregator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@700;900&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
     <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
+        :root {
+            --primary: #0a0e27;
+            --accent: #ff6b35;
+            --accent-light: #ff8c61;
+            --text: #1a1a2e;
+            --text-muted: #64748b;
+            --bg: #fafbfc;
+            --card-bg: #ffffff;
         }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* ANIMATED BACKGROUND */
         .hero {
-            background: linear-gradient(135deg, #0f172a, #1e293b);
+            position: relative;
+            background: linear-gradient(135deg, #0a0e27 0%, #16213e 50%, #1a1a2e 100%);
             color: white;
-            padding: 100px 20px;
-            text-align: center;
+            padding: 120px 20px 100px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(56, 189, 248, 0.1) 0%, transparent 50%);
+            animation: bgFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes bgFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
         .hero h1 {
-            font-weight: 700;
+            font-family: 'Bitter', serif;
+            font-weight: 900;
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero .lead {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 32px;
+            animation: slideUp 0.8s ease-out 0.2s both;
+        }
+
+        .stats-row {
+            display: flex;
+            gap: 48px;
+            justify-content: center;
+            margin: 40px 0;
+            animation: slideUp 0.8s ease-out 0.4s both;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Bitter', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--accent);
+            display: block;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 8px;
         }
 
         .btn-main {
-            background-color: #38bdf8;
+            background: var(--accent);
+            color: white;
             border: none;
-            padding: 12px 30px;
+            padding: 16px 48px;
             font-weight: 600;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            animation: slideUp 0.8s ease-out 0.6s both;
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
         }
 
         .btn-main:hover {
-            background-color: #0ea5e9;
+            background: var(--accent-light);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.4);
+            color: white;
         }
 
-        .section {
-            padding: 70px 20px;
+        /* SEARCH SECTION */
+        .search-section {
+            padding: 80px 20px;
+            background: white;
+            position: relative;
+        }
+
+        .search-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light), var(--primary));
+        }
+
+        .search-title {
+            font-family: 'Bitter', serif;
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 48px;
+            text-align: center;
+            color: var(--primary);
+        }
+
+        .search-box {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .search-box input {
+            height: 56px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.1);
+            outline: none;
+        }
+
+        .search-box button {
+            height: 56px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .search-box button:hover {
+            background: #16213e;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(10, 14, 39, 0.3);
+        }
+
+        /* FEATURES */
+        .features-section {
+            padding: 80px 20px;
+            background: linear-gradient(180deg, #fafbfc 0%, #f1f5f9 100%);
+        }
+
+        .section-title {
+            font-family: 'Bitter', serif;
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 64px;
+            text-align: center;
+            color: var(--primary);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .feature-box {
-            padding: 25px;
-            border-radius: 12px;
-            background-color: #f8fafc;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-            height: 100%;
+            background: white;
+            padding: 40px 32px;
+            border-radius: 16px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-box:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-box:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .feature-title {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .feature-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* TECH STACK */
+        .tech-section {
+            padding: 80px 20px;
+            background: white;
+        }
+
+        .tech-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .tech-badge {
-            background-color: #e2e8f0;
-            padding: 8px 14px;
-            border-radius: 20px;
-            margin: 5px;
-            display: inline-block;
-            font-size: 0.9rem;
+            background: linear-gradient(135deg, var(--primary), #16213e);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(10, 14, 39, 0.2);
         }
 
-        footer {
-            background-color: #0f172a;
+        .tech-badge:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 8px 24px rgba(10, 14, 39, 0.3);
+        }
+
+        /* ABOUT */
+        .about-section {
+            padding: 80px 20px;
+            background: var(--primary);
             color: white;
-            padding: 25px;
+        }
+
+        .about-section .section-title {
+            color: white;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-align: center;
+            opacity: 0.9;
+        }
+
+        .about-badge {
+            display: inline-block;
+            background: var(--accent);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-top: 24px;
+        }
+
+        /* TEAM SECTION */
+        .team-section {
+            margin-top: 40px;
+            padding: 32px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+        }
+
+        .team-section h3 {
+            font-family: 'Bitter', serif;
+            font-size: 1.8rem;
+            margin-bottom: 24px;
+            color: var(--accent);
+        }
+
+        .team-members {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .team-member {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            background: rgba(255, 107, 53, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* FOOTER */
+        footer {
+            background: #0a0e27;
+            color: white;
+            padding: 40px 20px;
             text-align: center;
         }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-name {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .stats-row {
+                flex-direction: column;
+                gap: 32px;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .search-box {
+                padding: 24px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .team-section {
+                padding: 24px 16px;
+            }
+        }
+
+        /* SCROLL ANIMATIONS - FIXED */
+        .fade-in {
+            opacity: 1;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in:nth-child(1) { animation-delay: 0.1s; }
+        .fade-in:nth-child(2) { animation-delay: 0.3s; }
+        .fade-in:nth-child(3) { animation-delay: 0.5s; }
+        .fade-in:nth-child(4) { animation-delay: 0.7s; }
     </style>
 </head>
 
@@ -68,109 +457,163 @@
 
 <!-- HERO SECTION -->
 <section class="hero">
-    <div class="container">
-        <h1 class="display-4">Find Your Dream Job</h1>
-        <p class="lead mt-3">
-            A  job aggregation platform.
+    <div class="hero-content">
+        <h1>Find Your Dream<br>Developer Job</h1>
+        <p class="lead">
+            Aggregating thousands of opportunities from top companies worldwide.
         </p>
 
-        <h4 class="mt-4">{{ total_jobs }}+ Active Jobs</h4>
+        <div class="stats-row">
+            <div class="stat-item">
+                <span class="stat-number">{{ total_jobs|default:"5000+" }}</span>
+                <span class="stat-label">Active Jobs</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">{{ total_companies|default:"500+" }}</span>
+                <span class="stat-label">Companies</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">6</span>
+                <span class="stat-label">Countries</span>
+            </div>
+        </div>
 
-        <a href="/jobs/" class="btn btn-main mt-4">
-            Browse Jobs →
-        </a>
+        <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+            <a href="/jobs/" class="btn-main">
+                Explore Opportunities →
+            </a>
+            {% if user.is_staff %}
+            <a href="/add-job/" class="btn-main" style="background: white; color: var(--accent); box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);">
+                Post a Job
+            </a>
+            {% endif %}
+        </div>
     </div>
 </section>
 
-<section class="section text-center">
-<div class="container">
+<!-- SEARCH SECTION -->
+<section class="search-section">
+    <div class="container">
+        <h2 class="search-title">Start Your Search</h2>
 
-<h2 class="mb-4">Find Jobs</h2>
+        <div class="search-box">
+            <form action="/jobs/" method="get" class="row g-3">
+                <div class="col-md-4">
+                    <input type="text" name="q" class="form-control"
+                           placeholder="Job title or keyword">
+                </div>
 
-<form action="/jobs/" method="get" class="row g-3 justify-content-center">
+                <div class="col-md-4">
+                    <input type="text" name="location" class="form-control"
+                           placeholder="City or country">
+                </div>
 
-<div class="col-md-4">
-<input type="text" name="q" class="form-control"
-placeholder="Job title (Python, Backend...)">
-</div>
-
-<div class="col-md-3">
-<input type="text" name="location" class="form-control"
-placeholder="Location">
-</div>
-
-<div class="col-md-3">
-<input type="text" name="company" class="form-control"
-placeholder="Company">
-</div>
-
-<div class="col-md-2">
-<button class="btn btn-main w-100">
-Search Jobs
-</button>
-</div>
-
-</form>
-
-</div>
+                <div class="col-md-4">
+                    <button class="btn w-100">
+                        Search Jobs
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </section>
 
 <!-- FEATURES -->
-<section class="section bg-light text-center">
+<section class="features-section">
     <div class="container">
-        <h2 class="mb-5">Key Features</h2>
-        <div class="row">
-            <div class="col-md-3">
-                <div class="feature-box">
-                    🔍 Smart Job Search
-                </div>
+        <h2 class="section-title">Why Choose TalentFlow?</h2>
+        
+        <div class="feature-grid">
+            <div class="feature-box fade-in">
+                <span class="feature-icon">🎯</span>
+                <h3 class="feature-title">Smart Filtering</h3>
+                <p class="feature-desc">Filter by role, location, and company to find exactly what you need</p>
             </div>
-            <div class="col-md-3">
-                <div class="feature-box">
-                    📍 Location Filtering
-                </div>
+            
+            <div class="feature-box fade-in">
+                <span class="feature-icon">🌍</span>
+                <h3 class="feature-title">Global Reach</h3>
+                <p class="feature-desc">Access opportunities from US, UK, India, Canada, Australia & Singapore</p>
             </div>
-            <div class="col-md-3">
-                <div class="feature-box">
-                    📄 Pagination Support
-                </div>
+            
+            <div class="feature-box fade-in">
+                <span class="feature-icon">⚡</span>
+                <h3 class="feature-title">Real-Time Updates</h3>
+                <p class="feature-desc">Fresh job listings updated daily via Adzuna API integration</p>
             </div>
-            <div class="col-md-3">
-                <div class="feature-box">
-                    ⚡ Real-Time API Data
-                </div>
+            
+            <div class="feature-box fade-in">
+                <span class="feature-icon">🔗</span>
+                <h3 class="feature-title">Direct Applications</h3>
+                <p class="feature-desc">Apply directly on company websites with one click</p>
             </div>
         </div>
     </div>
 </section>
 
 <!-- TECH STACK -->
-<section class="section text-center">
+<section class="tech-section">
     <div class="container">
-        <h2 class="mb-4">Built With</h2>
-        <div>
+        <h2 class="section-title">Built With Modern Tech</h2>
+        <div class="tech-badges">
             <span class="tech-badge">Python</span>
-            <span class="tech-badge">Django</span>
+            <span class="tech-badge">Django 6.0</span>
             <span class="tech-badge">Adzuna API</span>
-            <span class="tech-badge">Bootstrap</span>
+            <span class="tech-badge">Bootstrap 5</span>
             <span class="tech-badge">SQLite</span>
         </div>
     </div>
 </section>
 
 <!-- ABOUT PROJECT -->
-<section class="section bg-light text-center">
+<section class="about-section">
     <div class="container">
-        <h2 class="mb-4"> This project is developed under the department of centre for science of happiness  </h2>
-        <p class="col-md-8 mx-auto">
-        </p>
+        <h2 class="section-title">About TalentFlow</h2>
+
+        <div class="about-content">
+            <p>
+                <strong>TalentFlow</strong> is a smart job aggregation platform designed to help
+                students discover relevant job opportunities from multiple sources in one place.
+                Instead of visiting different job portals, users can explore curated listings
+                collected through automated job scraping.
+            </p>
+
+            <p style="margin-top: 20px;">
+                This project was developed as part of an academic initiative under the
+                <span class="about-badge">Centre for Science of Happiness</span>,
+                focusing on building technology that simplifies the job search process.
+            </p>
+
+            <p style="margin-top: 20px; font-size: 0.95rem; opacity: 0.85;">
+                Our goal is to make job hunting faster, smarter, and more efficient by
+                providing a centralized platform where students can easily find
+                opportunities based on role, location, and skills.
+            </p>
+
+            <!-- TEAM SECTION -->
+            <div class="team-section">
+                <h3>Project Team</h3>
+                <div class="team-members">
+                    <span class="team-member">Ahmar Kalam</span>
+                    <span class="team-member">Rohan Saxena</span>
+                    <span class="team-member">Tabish Mirza</span>
+                    <span class="team-member">Faizan Yousuf</span>
+                    <span class="team-member">Adnan</span>
+                </div>
+            </div>
+
+        </div>
     </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-    <p>© 2026 DevHire | Ahmar kalam</p>
-    
+    <div class="footer-content">
+        <p>© 2026 TalentFlow | <span class="footer-name">Ahmar Kalam</span></p>
+        <p style="margin-top: 12px; opacity: 0.7; font-size: 0.9rem;">
+            Centre for Science of Happiness
+        </p>
+    </div>
 </footer>
 
 </body>
