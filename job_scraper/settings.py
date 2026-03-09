@@ -7,7 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY
 SECRET_KEY = 'django-insecure-7cv@0n9l=v&xtqna&sv!wpqxg1)@nm3k=qgmqho&n2j2(y0)m!'
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     'jobscraper-hph5.onrender.com',
