@@ -25,9 +25,9 @@ SECRET_KEY = 'django-insecure-7cv@0n9l=v&xtqna&sv!wpqxg1)@nm3k=qgmqho&n2j2(y0)m!
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['jobscraper-hph5.onrender.com', '127.0.0.1']
 
-ALLOWED_HOSTS = []
+
 
 
 # Application definition
