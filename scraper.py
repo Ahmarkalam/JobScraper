@@ -32,8 +32,8 @@ def scrape_jobs():
                 url = f"https://api.adzuna.com/v1/api/jobs/{country}/search/{page}"
 
                 params = {
-                    "app_id": APP_ID,
-                    "app_key": APP_KEY,
+                    "app_id": "4834034f",
+                    "app_key": "1ea41c23fe6e0d13290bcb07d2287f73",
                     "what": keyword,
                     "results_per_page": 20
                 }
