@@ -1,1 +1,1 @@
-web: gunicorn job_scraper.wsgi
+web: gunicorn job_scraper.wsgi:application --log-file -
